@@ -1,0 +1,54 @@
+<div class='table-responsive'>
+    <table class='table table-striped' style="width: 20%;"
+           *ngIf='resources.length'>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let resource of resources'>
+          <td>
+              {{resource.id}}
+          </td>
+          <td>
+            {{resource.name}}
+        </td> 
+        <td>
+            <button mat-raised-button (click)="open($event, resource.id)">BooK</button>
+        </td>           
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #callAPIDialog>
+    <form [formGroup]="bookForm"  (ngSubmit)="onSend(bookForm)">
+    <h2 matDialogTitle> Booking Resource</h2> 
+    <div class="form-group">
+        <label for="dateFrom">Date From</label>
+        <input  matInput type="date" class="form-control"  formControlName="dateFrom"  required >
+    </div>
+    <div class="form-group">
+        <label for="dateTo">Date To</label>
+        <input matInput type="date" class="form-control" formControlName="dateTo"  required>  
+    </div>
+    <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input matInput type="number" class="form-control" formControlName="quantity"   required>  
+    </div>
+            
+    <mat-dialog-actions align="end">
+        <button mat-button matDialogClose="no">Cancel</button>
+        <button type="submit" mat-button>Submit</button>
+    </mat-dialog-actions>
+</form>
+</ng-template>
+
+<div *ngIf='isVisible'>
+    <div  class="alert"  > 
+        {{message}}
+    </div>
+</div>
